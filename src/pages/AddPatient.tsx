@@ -103,3 +103,4 @@ const AddPatientPage: React.FC<{ onNavigate: (page: Page) => void }> = ({
         </div>
     );
 };
+export default AddPatientPage;

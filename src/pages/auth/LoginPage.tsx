@@ -97,3 +97,4 @@ const LoginPage: React.FC<{ onNavigate: (page: Page) => void }> = ({
         </div>
     );
 };
+export default LoginPage;

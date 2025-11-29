@@ -174,3 +174,4 @@ const PatientDetailPage: React.FC<{
         </div>
     );
 };
+export default PatientDetailPage;

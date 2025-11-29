@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Page, User } from "../../types";
 import "./auth.css";
 
-const SignUp: React.FC<{ onNavigate: (page: Page) => void }> = ({
+const SignupPage: React.FC<{ onNavigate: (page: Page) => void }> = ({
     onNavigate,
 }) => {
     const [username, setUsername] = useState("");
@@ -75,4 +75,4 @@ const SignUp: React.FC<{ onNavigate: (page: Page) => void }> = ({
     );
 };
 
-export default SignUp;
+export default SignupPage;

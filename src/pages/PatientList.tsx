@@ -92,3 +92,4 @@ const PatientListPage: React.FC<{
         </div>
     );
 };
+export default PatientListPage;
