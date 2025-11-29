@@ -1,5 +1,4 @@
-// Types
-interface Patient {
+export interface Patient {
     id: number;
     name: string;
     age: number;
@@ -7,16 +6,16 @@ interface Patient {
     medicalRecord: string[];
 }
 
-interface User {
+export interface User {
     username: string;
     passwordHash: string;
 }
 
-interface AuthContextType {
+export interface AuthContextType {
     isAuthenticated: boolean;
     login: (username: string) => void;
     logout: () => void;
     currentUser: string | null;
 }
 
-type Page = "login" | "signup" | "list" | "detail" | "add";
+export type Page = "login" | "signup" | "list" | "detail" | "add";

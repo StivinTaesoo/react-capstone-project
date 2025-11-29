@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Page, User } from "../types";
 
 const SignUp: React.FC<{ onNavigate: (page: Page) => void }> = ({
     onNavigate,
