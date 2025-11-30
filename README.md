@@ -6,9 +6,14 @@ A modern, fully-functional Single Page Application (SPA) for managing patient da
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
+## 🔗 Links
+
+-   [Live Demo](https://react-capstone-project-9e7a.vercel.app)
+
 ## 📋 Table of Contents
 
 -   [Overview](#overview)
+-   [Screenshots](#screenshots)
 -   [Features](#features)
 -   [Technology Stack](#technology-stack)
 -   [Getting Started](#getting-started)
@@ -31,6 +36,20 @@ This project serves as:
 -   A showcase of of all I have learnt from the EHA Academy Advanced Javascript Cohort
 -   A demonstration of modern React development practices
 -   A prototype for healthcare management applications
+
+## 📸 Screenshots
+
+Login Page
+![Login Page](./src/assets/login.png)
+
+Signup Page
+![Login Page](./src/assets/signup.png)
+
+Patient List Page
+![Login Page](./src/assets/patient-list.png)
+
+Patient Details Page
+![Login Page](./src/assets/patient-details.png)
 
 ## ✨ Features
 
@@ -525,10 +544,6 @@ SOFTWARE.
 -   React team for the amazing framework
 -   TypeScript team for type safety
 -   The open-source community
-
-## 🔗 Links
-
--   [Live Demo](https://your-demo-link.com)
 
 ---
 
