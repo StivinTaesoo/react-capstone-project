@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Page, Patient, User } from "../../types";
-import { useAuth } from "../../context/authContext";
+import { useAuth } from "../../context/AuthContext";
 import "./auth.css";
 
 const LoginPage: React.FC<{ onNavigate: (page: Page) => void }> = ({
