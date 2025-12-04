@@ -1,62 +1,48 @@
 import { useState } from "react";
-import { Page, Patient, User } from "../../types";
-import "./auth.css";
-import { useAuth } from "../../context/authContext";
+import { useNavigate, Link } from "react-router-dom";
+import { hashPassword } from "../../utils/crypto";
 
-const LoginPage: React.FC<{ onNavigate: (page: Page) => void }> = ({
-    onNavigate,
-}) => {
+const KEY_USERS = "pdm_users_v2";
+const KEY_SESSION = "pdm_session";
+
+const LoginPage: React.FC = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-    const { login } = useAuth();
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
-    const fetchInitialPatients = async () => {
-        try {
-            const response = await fetch(
-                "https://jsonplaceholder.typicode.com/users"
-            );
-            const users = await response.json();
-
-            const patients: Patient[] = users.map((user: any) => ({
-                id: user.id,
-                name: user.name,
-                age: Math.floor(Math.random() * 50) + 20,
-                contactInfo: user.email,
-                medicalRecord: [
-                    "Annual checkup completed",
-                    "Blood pressure: Normal",
-                ],
-            }));
-
-            localStorage.setItem("pdm_patients", JSON.stringify(patients));
-        } catch (err) {
-            console.error("Failed to fetch initial patients:", err);
-        }
-    };
-
-    const handleLogin = async () => {
+    const handleLogin = async (e?: React.FormEvent) => {
+        e?.preventDefault();
         setError("");
-
-        const users: User[] = JSON.parse(
-            localStorage.getItem("pdm_users") || "[]"
-        );
-        const user = users.find(
-            (u) => u.username === username && u.passwordHash === btoa(password)
-        );
-
-        if (!user) {
-            setError("Invalid username or password");
+        if (!username || !password) {
+            setError("Fill in all fields");
             return;
         }
-
-        const hasPatients = localStorage.getItem("pdm_patients");
-        if (!hasPatients) {
-            await fetchInitialPatients();
+        setLoading(true);
+        try {
+            const hashed = await hashPassword(password);
+            const users = JSON.parse(localStorage.getItem(KEY_USERS) || "[]");
+            const user = users.find(
+                (u: any) => u.username === username && u.passwordHash === hashed
+            );
+            if (!user) {
+                setError("Invalid credentials");
+                setLoading(false);
+                return;
+            }
+            localStorage.setItem(
+                KEY_SESSION,
+                JSON.stringify({ username, loggedAt: Date.now() })
+            );
+            // navigate to home (protected area)
+            navigate("/");
+        } catch (err) {
+            setError("Login failed");
+            console.error(err);
+        } finally {
+            setLoading(false);
         }
-
-        login(username);
-        onNavigate("list");
     };
 
     return (
@@ -64,37 +50,43 @@ const LoginPage: React.FC<{ onNavigate: (page: Page) => void }> = ({
             <div className="auth-card">
                 <h1>Login</h1>
                 {error && <div className="error-message">{error}</div>}
-                <div className="form-group">
-                    <label>Username</label>
-                    <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        placeholder="Enter username"
-                        onKeyPress={(e) => e.key === "Enter" && handleLogin()}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Password</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Enter password"
-                        onKeyPress={(e) => e.key === "Enter" && handleLogin()}
-                    />
-                </div>
-                <button onClick={handleLogin} className="btn-primary">
-                    Login
-                </button>
+                <form onSubmit={handleLogin}>
+                    <div className="form-group">
+                        <label htmlFor="username">Username</label>
+                        <input
+                            id="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="Enter username"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password">Password</label>
+                        <input
+                            id="password"
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Enter password"
+                        />
+                    </div>
+                    <button
+                        type="submit"
+                        className="btn-primary"
+                        disabled={loading}
+                    >
+                        {loading ? "Logging in..." : "Login"}
+                    </button>
+                </form>
                 <p className="auth-link">
                     Don't have an account?{" "}
-                    <span className="link" onClick={() => onNavigate("signup")}>
+                    <Link to="/signup" className="link">
                         Sign up here
-                    </span>
+                    </Link>
                 </p>
             </div>
         </div>
     );
 };
+
 export default LoginPage;
