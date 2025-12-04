@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { hashPassword } from "../../utils/crypto";
+import "./auth.css";
 
 const KEY_USERS = "pdm_users_v2";
 const KEY_SESSION = "pdm_session";
@@ -35,7 +36,7 @@ const LoginPage: React.FC = () => {
                 KEY_SESSION,
                 JSON.stringify({ username, loggedAt: Date.now() })
             );
-            // navigate to home (protected area)
+
             navigate("/");
         } catch (err) {
             setError("Login failed");

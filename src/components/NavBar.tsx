@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
+import "./styles/sections.css";
 
 const NavBar: React.FC = () => {
     const [open, setOpen] = useState(false);
@@ -16,7 +17,7 @@ const NavBar: React.FC = () => {
         <nav className="nav">
             <div className="nav-inner">
                 <div className="brand" onClick={() => navigate("/")}>
-                    PDM
+                    PDMS
                 </div>
                 <button
                     className="hamburger"
@@ -56,23 +57,6 @@ const NavBar: React.FC = () => {
                     )}
                 </div>
             </div>
-
-            <style>{`
-        .nav { background:white; padding:12px 16px; border-radius:10px; margin-bottom:16px; }
-        .nav-inner{ display:flex; gap:12px; align-items:center; justify-content:space-between; }
-        .brand{ font-weight:700; cursor:pointer; color:#333; }
-        .hamburger{ display:none; background:none; border:none; font-size:20px; }
-        .nav-links{ display:flex; gap:8px; align-items:center; }
-        .nav-link{ padding:6px 10px; text-decoration:none; color:#333; border-radius:8px; }
-        .nav-link:hover{ background:#f1f1ff; }
-        .nav-right{ display:flex; gap:8px; align-items:center; }
-        .btn-secondary{ background:white; border:1px solid #667eea; color:#667eea; padding:8px 10px; border-radius:6px; cursor:pointer; text-decoration:none; }
-        @media (max-width:720px){
-          .hamburger{ display:block; }
-          .nav-links{ position:absolute; left:10px; right:10px; top:64px; background:white; padding:10px; border-radius:8px; display:none; flex-direction:column; gap:6px; z-index:100; }
-          .nav-links.open{ display:flex; }
-        }
-      `}</style>
         </nav>
     );
 };

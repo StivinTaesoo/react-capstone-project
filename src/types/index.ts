@@ -1,6 +1,6 @@
 export interface Appointment {
     id: number;
-    dateISO: string; // ISO date string
+    dateISO: string;
     notes?: string;
     outcome?: string;
 }
@@ -12,7 +12,7 @@ export interface Prescription {
     dosage: string;
     frequency: string;
     duration: string;
-    adherence?: number; // 0-100
+    adherence?: number;
 }
 
 export interface Patient {
@@ -20,8 +20,8 @@ export interface Patient {
     name: string;
     age: number;
     contactInfo: string;
-    medicalRecord: string[]; // notes
-    appointments: Appointment[]; // past & future
+    medicalRecord: string[];
+    appointments: Appointment[];
     diagnoses: string[];
     prescriptions: Prescription[];
 }
@@ -29,7 +29,7 @@ export interface Patient {
 export interface Staff {
     id: number;
     name: string;
-    role: string; // "Doctor" | "Nurse" | "Admin"
+    role: string;
     contactInfo?: string;
     username?: string;
     passwordHash?: string;

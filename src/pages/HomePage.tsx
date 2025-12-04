@@ -3,11 +3,10 @@ import { Link } from "react-router-dom";
 const HomePage: React.FC = () => {
     return (
         <div className="content">
-            <h2>Welcome to Patient Data Manager</h2>
-            <p>
-                A demo SPA that simulates patient, staff and drug management
-                (frontend only).
-            </p>
+            <div className="hero-section">
+                <h2>Welcome to Speckledot Clinic Dashboard</h2>
+                <p>Manage Patient data, drugs and staff database</p>
+            </div>
 
             <div className="grid-cards" style={{ marginTop: 16 }}>
                 <Link to="/patients" className="card">
