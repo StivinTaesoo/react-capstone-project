@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { usePatients } from "../../hooks/usePatients";
 import LoadingIndicator from "../../components/LoadingIndicator";
+import "../styles/patientList.css";
 
 const PatientListPage: React.FC = () => {
     const { patients, remove } = usePatients();
@@ -65,7 +66,7 @@ const PatientListPage: React.FC = () => {
                                     Edit
                                 </Link>{" "}
                                 <button
-                                    className="link"
+                                    className="link delete-btn"
                                     onClick={() => handleDelete(p.id)}
                                 >
                                     Delete

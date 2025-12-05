@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { hashPassword } from "../../utils/crypto";
-import "./auth.css";
+import "../styles/auth.css";
+import "../styles/patientEdit.css";
+import { useAuth } from "../../context/authContext";
 
 const KEY_USERS = "pdm_users_v2";
 const KEY_SESSION = "pdm_session";
@@ -12,30 +14,34 @@ const LoginPage: React.FC = () => {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     const handleLogin = async (e?: React.FormEvent) => {
         e?.preventDefault();
         setError("");
+
         if (!username || !password) {
             setError("Fill in all fields");
             return;
         }
+
         setLoading(true);
+
         try {
             const hashed = await hashPassword(password);
             const users = JSON.parse(localStorage.getItem(KEY_USERS) || "[]");
+
             const user = users.find(
                 (u: any) => u.username === username && u.passwordHash === hashed
             );
+
             if (!user) {
                 setError("Invalid credentials");
                 setLoading(false);
                 return;
             }
-            localStorage.setItem(
-                KEY_SESSION,
-                JSON.stringify({ username, loggedAt: Date.now() })
-            );
+
+            login(username);
 
             navigate("/");
         } catch (err) {

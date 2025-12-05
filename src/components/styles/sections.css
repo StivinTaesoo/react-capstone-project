@@ -59,6 +59,23 @@
     font-size: 13px;
 }
 
+/* ********** Loading Indicator */
+svg {
+    animation: spin 1s linear infinite;
+}
+circle {
+    stroke: #667eea;
+    stroke-linecap: round;
+    stroke-dasharray: 31.4 31.4;
+    stroke: #667eea;
+    stroke-opacity: 0.9;
+}
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 @media (max-width: 720px) {
     .hamburger {
         display: block;

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useStaff } from "../../hooks/useStaff";
+import "../styles/patientEdit.css";
 
 const StaffEditPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();

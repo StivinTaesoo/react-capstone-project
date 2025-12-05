@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDrugs } from "../../hooks/useDrugs";
+import "../styles/patientEdit.css";
 
 const DrugEditPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();

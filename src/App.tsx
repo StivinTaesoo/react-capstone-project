@@ -146,7 +146,6 @@ const AppRoutes: React.FC = () => {
 };
 
 function AppRoot() {
-    // run seeder once
     React.useEffect(() => {
         runSeederIfNeeded();
     }, []);

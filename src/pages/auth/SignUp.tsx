@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { hashPassword } from "../../utils/crypto";
+import "../styles/auth.css";
+import "../styles/patientEdit.css";
 
 const KEY_USERS = "pdm_users_v2";
 
@@ -29,12 +31,8 @@ const SignUp: React.FC = () => {
             const passwordHash = await hashPassword(password);
             users.push({ username, passwordHash });
             localStorage.setItem(KEY_USERS, JSON.stringify(users));
-            // auto login + redirect
-            localStorage.setItem(
-                "pdm_session",
-                JSON.stringify({ username, loggedAt: Date.now() })
-            );
-            navigate("/");
+
+            navigate("/login");
         } catch (err) {
             console.error(err);
             setError("Failed to sign up");
@@ -76,6 +74,12 @@ const SignUp: React.FC = () => {
                         {loading ? "Signing up..." : "Sign Up"}
                     </button>
                 </form>
+                <p className="auth-link">
+                    Already have an account?{" "}
+                    <Link to="/Login" className="link">
+                        Login here
+                    </Link>
+                </p>
             </div>
         </div>
     );

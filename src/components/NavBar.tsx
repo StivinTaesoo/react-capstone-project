@@ -17,7 +17,7 @@ const NavBar: React.FC = () => {
         <nav className="nav">
             <div className="nav-inner">
                 <div className="brand" onClick={() => navigate("/")}>
-                    PDMS
+                    ::SDC::
                 </div>
                 <button
                     className="hamburger"
@@ -27,6 +27,9 @@ const NavBar: React.FC = () => {
                     ☰
                 </button>
                 <div className={`nav-links ${open ? "open" : ""}`}>
+                    <Link to="/" className="nav-link">
+                        Home
+                    </Link>
                     <Link to="/patients" className="nav-link">
                         Patients
                     </Link>

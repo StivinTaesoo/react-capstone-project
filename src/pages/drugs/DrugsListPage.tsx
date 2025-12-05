@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useDrugs } from "../../hooks/useDrugs";
 import { useState } from "react";
+import "../styles/patientList.css";
 
 const DrugsListPage: React.FC = () => {
     const { drugs, remove } = useDrugs();
@@ -55,7 +56,7 @@ const DrugsListPage: React.FC = () => {
                                     Edit
                                 </Link>{" "}
                                 <button
-                                    className="link"
+                                    className="link delete-btn"
                                     onClick={() => handleDelete(d.id)}
                                 >
                                     Delete
