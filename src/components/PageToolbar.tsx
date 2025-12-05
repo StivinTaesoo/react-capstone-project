@@ -19,12 +19,24 @@ const PageToolbar: React.FC<Props> = ({
 }) => {
     return (
         <div className="toolbar">
-            <input
-                className="search-input"
-                placeholder={placeholder}
-                value={search}
-                onChange={(e) => onSearch(e.target.value)}
-            />
+            <div className="search-container">
+                <input
+                    className="search-input"
+                    placeholder={placeholder}
+                    value={search}
+                    onChange={(e) => onSearch(e.target.value)}
+                />
+
+                {search && (
+                    <button
+                        className="clear-button"
+                        onClick={() => onSearch("")}
+                        type="button"
+                    >
+                        ✕
+                    </button>
+                )}
+            </div>
 
             <div>
                 <Link to={buttonLink} className="btn-primary">
