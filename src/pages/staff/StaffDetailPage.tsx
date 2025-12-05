@@ -32,8 +32,8 @@ const StaffDetailPage: React.FC = () => {
             </p>
 
             <div className="button-group">
-                <Link to={`/staff/${staff.id}/edit`} className="btn-primary">
-                    Edit
+                <Link to={`/patients/${staff.id}/edit`}>
+                    <button className="btn-primary">Edit</button>
                 </Link>
                 <button
                     className="btn-secondary"
