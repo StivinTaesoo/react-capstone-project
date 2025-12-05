@@ -20,3 +20,10 @@
     color: #333;
     text-align: center;
 }
+
+.auth-link {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+    font-size: 14px;
+}

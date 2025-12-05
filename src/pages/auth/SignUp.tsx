@@ -1,39 +1,45 @@
 import { useState } from "react";
-import { Page, User } from "../../types";
-import "./auth.css";
+import { Link, useNavigate } from "react-router-dom";
+import { hashPassword } from "../../utils/crypto";
+import "../styles/auth.css";
+import "../styles/patientEdit.css";
+import LoadingIndicator from "../../components/LoadingIndicator";
 
-const SignupPage: React.FC<{ onNavigate: (page: Page) => void }> = ({
-    onNavigate,
-}) => {
+const KEY_USERS = "pdm_users_v2";
+
+const SignUp: React.FC = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
-    const handleSignup = () => {
+    const handleSignup = async (e?: React.FormEvent) => {
+        e?.preventDefault();
         setError("");
-
         if (!username || !password) {
             setError("Please fill in all fields");
             return;
         }
+        setLoading(true);
+        try {
+            const users = JSON.parse(localStorage.getItem(KEY_USERS) || "[]");
+            if (users.some((u: any) => u.username === username)) {
+                setError("Username already exists");
+                setLoading(false);
+                return;
+            }
+            const passwordHash = await hashPassword(password);
+            users.push({ username, passwordHash });
+            localStorage.setItem(KEY_USERS, JSON.stringify(users));
 
-        const users: User[] = JSON.parse(
-            localStorage.getItem("pdm_users") || "[]"
-        );
-
-        if (users.some((u) => u.username === username)) {
-            setError("Username already exists");
-            return;
+            navigate("/login");
+        } catch (err) {
+            console.error(err);
+            setError("Failed to sign up");
+        } finally {
+            setLoading(false);
         }
-
-        const newUser: User = {
-            username,
-            passwordHash: btoa(password),
-        };
-
-        users.push(newUser);
-        localStorage.setItem("pdm_users", JSON.stringify(users));
-        onNavigate("login");
     };
 
     return (
@@ -41,38 +47,43 @@ const SignupPage: React.FC<{ onNavigate: (page: Page) => void }> = ({
             <div className="auth-card">
                 <h1>Sign Up</h1>
                 {error && <div className="error-message">{error}</div>}
-                <div className="form-group">
-                    <label>Username</label>
-                    <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        placeholder="Enter username"
-                        onKeyPress={(e) => e.key === "Enter" && handleSignup()}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Password</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Enter password"
-                        onKeyPress={(e) => e.key === "Enter" && handleSignup()}
-                    />
-                </div>
-                <button onClick={handleSignup} className="btn-primary">
-                    Sign Up
-                </button>
+                <form onSubmit={handleSignup}>
+                    <div className="form-group">
+                        <label htmlFor="su-username">Username</label>
+                        <input
+                            id="su-username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="Choose a username"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="su-password">Password</label>
+                        <input
+                            id="su-password"
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Choose a password"
+                        />
+                    </div>
+                    <button
+                        type="submit"
+                        className="btn-primary"
+                        disabled={loading}
+                    >
+                        {loading ? <LoadingIndicator/> : "Sign Up"}
+                    </button>
+                </form>
                 <p className="auth-link">
                     Already have an account?{" "}
-                    <span className="link" onClick={() => onNavigate("login")}>
+                    <Link to="/Login" className="link">
                         Login here
-                    </span>
+                    </Link>
                 </p>
             </div>
         </div>
     );
 };
 
-export default SignupPage;
+export default SignUp;
