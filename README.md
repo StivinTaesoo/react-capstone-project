@@ -8,7 +8,7 @@ A modern, frontend-only Single Page Application (SPA) for managing patients, sta
 
 ## 🔗 Links
 
--   Live Demo: _(update with your deployment link if any)_
+-   [Live Demo:](https://react-capstone-project-9e7a.vercel.app)
 
 ## 📋 Table of Contents
 
@@ -39,8 +39,6 @@ This project is a frontend simulation of a Patient Data Management System. It de
 This project was built as a capstone / demo and intentionally keeps all logic client-side for simplicity.
 
 ## 📸 Screenshots
-
-_(Place screenshots in `src/assets` and update paths below)_
 
 -   Login Page:
     ![Login Page](./src/assets/login.png)
