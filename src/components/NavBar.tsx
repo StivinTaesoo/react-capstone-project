@@ -10,23 +10,33 @@ const NavBar: React.FC = () => {
 
     const handleLogout = () => {
         logout();
+        setOpen(false); // close menu on mobile
         navigate("/login");
+    };
+
+    const handleNavigate = (path: string) => {
+        navigate(path);
+        setOpen(false); // close mobile menu
     };
 
     return (
         <nav className="nav">
             <div className="nav-inner">
-                <div className="brand" onClick={() => navigate("/")}>
+                <div className="brand" onClick={() => handleNavigate("/")}>
                     ::SDC::
                 </div>
+
+                {/* Hamburger Button */}
                 <button
                     className="hamburger"
-                    onClick={() => setOpen((s) => !s)}
+                    onClick={() => setOpen(true)}
                     aria-expanded={open}
                 >
                     ☰
                 </button>
-                <div className={`nav-links ${open ? "open" : ""}`}>
+
+                {/* Desktop Navigation */}
+                <div className="nav-links desktop-only">
                     <Link to="/" className="nav-link">
                         Home
                     </Link>
@@ -40,7 +50,8 @@ const NavBar: React.FC = () => {
                         Drugs
                     </Link>
                 </div>
-                <div className="nav-right">
+
+                <div className="nav-right desktop-only">
                     {isAuthenticated ? (
                         <>
                             <span className="user-info">Hi, {currentUser}</span>
@@ -52,11 +63,69 @@ const NavBar: React.FC = () => {
                             </button>
                         </>
                     ) : (
+                        <Link to="/login" className="btn-secondary">
+                            Login
+                        </Link>
+                    )}
+                </div>
+            </div>
+
+            {/* **********  MOBILE MENU ************/}
+            <div className={`mobile-menu ${open ? "open" : ""}`}>
+                <button className="close-btn" onClick={() => setOpen(false)}>
+                    ×
+                </button>
+
+                <Link
+                    to="/"
+                    className="mobile-link"
+                    onClick={() => setOpen(false)}
+                >
+                    Home
+                </Link>
+
+                <Link
+                    to="/patients"
+                    className="mobile-link"
+                    onClick={() => setOpen(false)}
+                >
+                    Patients
+                </Link>
+
+                <Link
+                    to="/staff"
+                    className="mobile-link"
+                    onClick={() => setOpen(false)}
+                >
+                    Staff
+                </Link>
+
+                <Link
+                    to="/drugs"
+                    className="mobile-link"
+                    onClick={() => setOpen(false)}
+                >
+                    Drugs
+                </Link>
+
+                <div className="mobile-auth">
+                    {isAuthenticated ? (
                         <>
-                            <Link to="/login" className="btn-secondary">
-                                Login
-                            </Link>
+                            <div className="mobile-user">Hi, {currentUser}</div>
+                            <button
+                                className="btn-secondary"
+                                onClick={handleLogout}
+                            >
+                                Logout
+                            </button>
                         </>
+                    ) : (
+                        <button
+                            className="btn-secondary"
+                            onClick={() => handleNavigate("/login")}
+                        >
+                            Login
+                        </button>
                     )}
                 </div>
             </div>
