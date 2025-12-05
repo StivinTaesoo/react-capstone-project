@@ -3,11 +3,11 @@ import { addStaff } from "../services/staffService";
 import { addDrug } from "../services/drugService";
 import { Patient, Staff, Drug } from "../types";
 
-export function runSeederIfNeeded() {
+function runSeederIfNeeded() {
     const seededKey = "pdm_seeded_v1";
     if (localStorage.getItem(seededKey)) return;
 
-    // create some sample drugs
+    //  some sample drugs
     const drugs: Drug[] = [
         {
             id: 1,

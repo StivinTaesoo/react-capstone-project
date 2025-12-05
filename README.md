@@ -228,7 +228,7 @@ This project is licensed under the MIT License
 ## 🙏 Acknowledgments
 
 -   All staff and mentors of EHA Academy
--   JSONPlaceholder for providing free API endpoints
+-   JSONPlaceholder, RandomUser, and api.fda.gov for providing free API endpoints
 -   React team for the amazing framework
 -   TypeScript team for type safety
 -   The open-source community

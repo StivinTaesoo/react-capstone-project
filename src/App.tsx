@@ -13,10 +13,11 @@ import StaffEditPage from "./pages/staff/StaffEditPage";
 import DrugsListPage from "./pages/drugs/DrugsListPage";
 import DrugDetailPage from "./pages/drugs/DrugDetailPage";
 import DrugEditPage from "./pages/drugs/DrugEditPage";
-import { runSeederIfNeeded } from "./utils/sampleDataSeeder";
+// import { runSeederIfNeeded } from "./utils/sampleDataSeeder";
 import MainLayout from "./layouts/MainLayout";
 import "./App.css";
 import LoadingIndicator from "./components/LoadingIndicator";
+import { runSeederIfNeeded } from "./utils/seeder";
 
 function RequireAuth({ children }: { children: React.JSX.Element }) {
     const auth = useAuth();
