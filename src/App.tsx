@@ -16,11 +16,19 @@ import DrugEditPage from "./pages/drugs/DrugEditPage";
 import { runSeederIfNeeded } from "./utils/sampleDataSeeder";
 import MainLayout from "./layouts/MainLayout";
 import "./App.css";
-// import "./styles.css";
+import LoadingIndicator from "./components/LoadingIndicator";
 
 function RequireAuth({ children }: { children: React.JSX.Element }) {
     const auth = useAuth();
-    if (!auth.isAuthenticated) return <Navigate to="/login" replace />;
+
+    if (auth.initializing) {
+        return <LoadingIndicator />;
+    }
+
+    if (!auth.isAuthenticated) {
+        return <Navigate to="/login" replace />;
+    }
+
     return children;
 }
 

@@ -50,6 +50,7 @@ export interface User {
 
 export interface AuthContextType {
     isAuthenticated: boolean;
+    initializing: boolean;
     login: (username: string) => void;
     logout: () => void;
     currentUser: string | null;

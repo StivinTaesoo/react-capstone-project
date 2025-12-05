@@ -22,9 +22,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
     const [currentUser, setCurrentUser] = useState<string | null>(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [initializing, setInitializing] = useState(true);
 
     useEffect(() => {
         const s = localStorage.getItem(KEY);
+
         if (s) {
             try {
                 const parsed = JSON.parse(s);
@@ -35,6 +37,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
                 setIsAuthenticated(true);
             }
         }
+
+        setInitializing(false);
     }, []);
 
     const login = (username: string) => {
@@ -52,7 +56,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
     return (
         <AuthContext.Provider
-            value={{ isAuthenticated, login, logout, currentUser }}
+            value={{
+                isAuthenticated,
+                login,
+                logout,
+                currentUser,
+                initializing,
+            }}
         >
             {children}
         </AuthContext.Provider>

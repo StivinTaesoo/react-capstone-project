@@ -4,6 +4,7 @@ import { hashPassword } from "../../utils/crypto";
 import "../styles/auth.css";
 import "../styles/patientEdit.css";
 import { useAuth } from "../../context/authContext";
+import LoadingIndicator from "../../components/LoadingIndicator";
 
 const KEY_USERS = "pdm_users_v2";
 const KEY_SESSION = "pdm_session";
@@ -82,7 +83,7 @@ const LoginPage: React.FC = () => {
                         className="btn-primary"
                         disabled={loading}
                     >
-                        {loading ? "Logging in..." : "Login"}
+                        {loading ? <LoadingIndicator /> : "Login"}
                     </button>
                 </form>
                 <p className="auth-link">

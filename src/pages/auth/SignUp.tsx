@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { hashPassword } from "../../utils/crypto";
 import "../styles/auth.css";
 import "../styles/patientEdit.css";
+import LoadingIndicator from "../../components/LoadingIndicator";
 
 const KEY_USERS = "pdm_users_v2";
 
@@ -71,7 +72,7 @@ const SignUp: React.FC = () => {
                         className="btn-primary"
                         disabled={loading}
                     >
-                        {loading ? "Signing up..." : "Sign Up"}
+                        {loading ? <LoadingIndicator/> : "Sign Up"}
                     </button>
                 </form>
                 <p className="auth-link">

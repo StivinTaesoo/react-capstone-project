@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { usePatients } from "../../hooks/usePatients";
 import LoadingIndicator from "../../components/LoadingIndicator";
-import "../styles/patientList.css";
+import PageToolbar from "../../components/PageToolbar";
+import CardGrid from "../../components/CardGrid";
 
 const PatientListPage: React.FC = () => {
     const { patients, remove } = usePatients();
@@ -25,57 +26,48 @@ const PatientListPage: React.FC = () => {
 
     return (
         <div className="content">
-            <div className="toolbar">
-                <input
-                    className="search-input"
-                    placeholder="Search by name or ID..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                />
-                <div>
-                    <Link to="/patients/new" className="btn-primary">
-                        Add New Patient
-                    </Link>
-                </div>
-            </div>
+            <PageToolbar
+                search={search}
+                onSearch={setSearch}
+                buttonText="Add New Patient"
+                buttonLink="/patients/new"
+                placeholder="Search by name or ID..."
+            />
 
             {loading && <LoadingIndicator />}
 
-            <div className="patient-grid">
-                {filtered.length === 0 ? (
-                    <div className="empty-state">No patients found</div>
-                ) : (
-                    filtered.map((p) => (
-                        <div key={p.id} className="patient-card">
-                            <div className="patient-id">ID: {p.id}</div>
-                            <h3>{p.name}</h3>
-                            <p>
-                                <strong>Age:</strong> {p.age}
-                            </p>
-                            <p>
-                                <strong>Contact:</strong> {p.contactInfo}
-                            </p>
-                            <div className="card-footer">
-                                <Link to={`/patients/${p.id}`} className="link">
-                                    View
-                                </Link>{" "}
-                                <Link
-                                    to={`/patients/${p.id}/edit`}
-                                    className="link"
-                                >
-                                    Edit
-                                </Link>{" "}
-                                <button
-                                    className="link delete-btn"
-                                    onClick={() => handleDelete(p.id)}
-                                >
-                                    Delete
-                                </button>
-                            </div>
+            <CardGrid items={filtered} emptyText="No patients found">
+                {(p) => (
+                    <div key={p.id} className="patient-card">
+                        <div className="patient-id">ID: {p.id}</div>
+                        <h3>{p.name}</h3>
+                        <p>
+                            <strong>Age:</strong> {p.age}
+                        </p>
+                        <p>
+                            <strong>Contact:</strong> {p.contactInfo}
+                        </p>
+
+                        <div className="card-footer">
+                            <Link to={`/patients/${p.id}`} className="link">
+                                View
+                            </Link>{" "}
+                            <Link
+                                to={`/patients/${p.id}/edit`}
+                                className="link"
+                            >
+                                Edit
+                            </Link>{" "}
+                            <button
+                                className="link delete-btn"
+                                onClick={() => handleDelete(p.id)}
+                            >
+                                Delete
+                            </button>
                         </div>
-                    ))
+                    </div>
                 )}
-            </div>
+            </CardGrid>
         </div>
     );
 };
