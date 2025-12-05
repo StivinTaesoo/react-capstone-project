@@ -70,7 +70,7 @@ const PatientDetailPage: React.FC = () => {
                     />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group format-aria">
                     <label>Appointments</label>
                     <ul>
                         {(patient.appointments || []).map((a: any) => (
@@ -82,7 +82,7 @@ const PatientDetailPage: React.FC = () => {
                     </ul>
                 </div>
 
-                <div className="form-group">
+                <div className="form-group format-aria">
                     <label>Diagnoses</label>
                     <ul>
                         {(patient.diagnoses || []).map(
@@ -93,7 +93,7 @@ const PatientDetailPage: React.FC = () => {
                     </ul>
                 </div>
 
-                <div className="form-group">
+                <div className="form-group format-aria">
                     <label>Prescriptions</label>
                     <ul>
                         {(patient.prescriptions || []).map((pr: any) => (
@@ -106,17 +106,14 @@ const PatientDetailPage: React.FC = () => {
                 </div>
 
                 <div className="button-group">
-                    <Link
-                        to={`/patients/${patient.id}/edit`}
-                        className="btn-primary"
-                    >
-                        Edit
+                    <Link to={`/patients/${patient.id}/edit`}>
+                        <button className="btn-primary">Edit</button>
                     </Link>
                     <button
                         className="btn-secondary"
-                        onClick={() => handleSaveNote()}
+                        onClick={() => navigate("/patients")}
                     >
-                        Save Notes
+                        Cancel
                     </button>
                     <button className="btn-danger" onClick={handleDelete}>
                         Delete Patient

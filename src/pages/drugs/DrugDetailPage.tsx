@@ -32,8 +32,8 @@ const DrugDetailPage: React.FC = () => {
                 <strong>Stock:</strong> {drug.stock}
             </p>
             <div className="button-group">
-                <Link to={`/drugs/${drug.id}/edit`} className="btn-primary">
-                    Edit
+                <Link to={`/patients/${drug.id}/edit`}>
+                    <button className="btn-primary">Edit</button>
                 </Link>
                 <button
                     className="btn-secondary"
