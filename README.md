@@ -45,11 +45,13 @@ _(Place screenshots in `src/assets` and update paths below)_
 -   Login Page:
     ![Login Page](./src/assets/login.png)
 -   Signup Page:
-    ![Login Page](./src/assets/signup.png)
+    ![Signup Page](./src/assets/signup.png)
+-   Signup Page:
+    ![Home Page](./src/assets/home.png)
 -   Patient List Page:
-    ![Login Page](./src/assets/patient-list.png)
+    ![Patient List](./src/assets/patient-list.png)
 -   Patient Details Page:
-    ![Login Page](./src/assets/patient-details.png)
+    ![Patient Details](./src/assets/patient-details.png)
 
 ## ✨ Features
 
